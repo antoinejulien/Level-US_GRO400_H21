@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "Python\\gro401_venv\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\.pyenvs\\gro401_venv\\Scripts\\python.exe",
+    "python.venvPath": "C:\\.pyenvs"
 }
