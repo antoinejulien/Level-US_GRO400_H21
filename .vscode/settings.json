@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "gro401_venv\\Scripts\\python_gro.exe"
+    "python.pythonPath": "${workspaceFolder}\\gro400_venv\\Scripts\\python.exe"
 
 }
