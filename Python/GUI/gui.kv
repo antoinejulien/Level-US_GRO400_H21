@@ -1,7 +1,71 @@
-<MyLayout>
-    GridLayout:
+WindowManager:
+    MenuWindow:
+    ManualWindow:
+    AutoWindow:
+    
+<MenuWindow>
+    name: "menu"
 
-        cols :1
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
 
         Label:
-            text: "Test"
+            text: "Choose the desired operation mode"
+
+        Button:
+            text: "Manual"
+            on_release: 
+                app.root.current = "manual_window"
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: "Automatic"
+            on_release: 
+                app.root.current = "auto_window"
+                root.manager.transition.direction = "left"
+
+<ManualWindow>
+    name: "manual_window"
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            text: "Manual mode"
+
+        Button:
+            text: "Menu"
+            on_release: 
+                app.root.current = "menu"
+                root.manager.transition.direction = "right"
+
+        Button:
+            text: "Automatic"
+            on_release: 
+                app.root.current = "auto_window"
+                root.manager.transition.direction = "left"        
+
+
+<AutoWindow>
+    name: "auto_window"
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            text: "Automatic mode"
+
+        Button:
+            text: "Menu"
+            on_release: 
+                app.root.current = "menu"
+                root.manager.transition.direction = "right"
+
+        Button:
+            text: "Manual"
+            on_release: 
+                app.root.current = "manual_window"
+                root.manager.transition.direction = "right"
