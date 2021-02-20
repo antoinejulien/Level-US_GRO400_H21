@@ -1,71 +1,98 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+
+<Label>
+    halign: "center"
+    valign: "middle"
+
+<MenuButton@Button>
+    font_size: 32
+
 WindowManager:
+    transition: NoTransition()
     MenuWindow:
     ManualWindow:
     AutoWindow:
-    
+
 <MenuWindow>
     name: "menu"
 
-    BoxLayout:
-        orientation: "vertical"
+    canvas.before:
+        BorderImage:
+            source: "gui\\images\\background.jpg"
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
         size: root.width, root.height
 
-        Label:
-            text: "Choose the desired operation mode"
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            size_hint: (0.60, 0.60)
+            pos_hint: {"x": 0.05, "top": 0.8}
 
-        Button:
-            text: "Manual"
-            on_release: 
-                app.root.current = "manual_window"
-                root.manager.transition.direction = "left"
+            Label:
+                text: "Choose the desired\noperation mode"
+                font_size: 32
 
-        Button:
-            text: "Automatic"
-            on_release: 
-                app.root.current = "auto_window"
-                root.manager.transition.direction = "left"
+            MenuButton:
+                text: "Manual"
+                on_release: 
+                    app.root.current = "manual_window"
+
+            MenuButton:
+                text: "Automatic"
+                on_release: 
+                    app.root.current = "auto_window"
 
 <ManualWindow>
     name: "manual_window"
 
-    BoxLayout:
-        orientation: "vertical"
+    canvas.before:
+        BorderImage:
+            source: "gui\\images\\background.jpg"
+            pos: self.pos
+            size: self.size
+    
+    FloatLayout:
         size: root.width, root.height
 
         Label:
             text: "Manual mode"
+            font_size: 32
+            size_hint: (1, 0.1)
+            pos_hint: {"left": 1, "top": 1}
 
         Button:
             text: "Menu"
+            size_hint: (None, None)
+            size: (75,25)
+            pos_hint: {"left": 1, "bottom": 1}
             on_release: 
                 app.root.current = "menu"
-                root.manager.transition.direction = "right"
-
-        Button:
-            text: "Automatic"
-            on_release: 
-                app.root.current = "auto_window"
-                root.manager.transition.direction = "left"        
-
 
 <AutoWindow>
     name: "auto_window"
 
-    BoxLayout:
-        orientation: "vertical"
+    canvas.before:
+        BorderImage:
+            source: "gui\\images\\background.jpg"
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
         size: root.width, root.height
 
         Label:
             text: "Automatic mode"
+            font_size: 32
+            size_hint: (1, 0.1)
+            pos_hint: {"left": 1, "top": 1}
 
         Button:
             text: "Menu"
+            size_hint: (None, None)
+            size: (75,25)
+            pos_hint: {"left": 1, "bottom": 1}
             on_release: 
                 app.root.current = "menu"
-                root.manager.transition.direction = "right"
-
-        Button:
-            text: "Manual"
-            on_release: 
-                app.root.current = "manual_window"
-                root.manager.transition.direction = "right"
