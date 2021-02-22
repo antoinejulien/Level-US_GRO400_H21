@@ -10,8 +10,7 @@
 #     in at the github page :                                   #
 #     https://github.com/antoinejulien/Level-US_GRO400_H21      #
 #################################################################
-import gui.gui as gui
-
+import GUI.gui as gui
 
 if __name__ == "__main__":
     app = gui.Level_US()
