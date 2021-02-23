@@ -1,4 +1,5 @@
 import serial
+import time
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.lang import Builder
@@ -19,10 +20,14 @@ class ManualWindow(Screen):
 
     def high(self):
         self.status.text = "Moving to\nposition high."
-        
+        line = ""
+
         if(ser.in_waiting >0):
             ser.write(b"HIGH\n")
-            line = ser.readline().decode('utf-8').rstrip()
+
+            while line == "":
+                line = ser.readline().decode('utf-8').rstrip()
+                time.sleep(0.1)
 
             if line == "DONE":
                 self.status.text = "Position high\nreached."
@@ -32,10 +37,14 @@ class ManualWindow(Screen):
 
     def mid(self):
         self.status.text = "Moving to\nposition mid."
+        line = ""
 
         if(ser.in_waiting >0):
             ser.write(b"MID\n")
-            line = ser.readline().decode('utf-8').rstrip()
+
+            while line == "":
+                line = ser.readline().decode('utf-8').rstrip()
+                time.sleep(0.1)
 
             if line == "DONE":
                 self.status.text = "Position mid\nreached."
@@ -45,10 +54,14 @@ class ManualWindow(Screen):
 
     def low(self):
         self.status.text = "Moving to\nposition low."
+        line = ""
 
         if(ser.in_waiting >0):
             ser.write(b"LOW\n")
-            line = ser.readline().decode('utf-8').rstrip()
+
+            while line == "":
+                line = ser.readline().decode('utf-8').rstrip()
+                time.sleep(0.1)
 
             if line == "DONE":
                 self.status.text = "Position low\nreached."
