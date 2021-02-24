@@ -14,4 +14,6 @@ The app contains 3 windows:
 
 ## Communication
 
-The app is the high-end of the program, it sends commands to the OpenCR platform for the command type and positionning.
+The app is the high-end of the program, it sends commands to the OpenCR platform for the command type and positionning. The openCR communicates information about the sensors and the motors. Information are encoded and decoded on both end. All communication is done by serial port. 
+
+Running the communication with the current code is kind of slow. Therefore, we might need to change the way it is done or the way the information is transfered from one device to another. For the moment, it is still functional. 
