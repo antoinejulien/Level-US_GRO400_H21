@@ -1,4 +1,6 @@
 # Level_US_GRO400_H21
+## First prototype
+![alt text](https://github.com/antoinejulien/Level-US_GRO400_H21/Images/python-gui/Prototype1.jpg?raw=true)
 
 ## How to install the Python virtual environment (on Windows)
 
