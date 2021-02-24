@@ -1,4 +1,4 @@
-##Cad design:
+## Cad design:
 
   The cad of the first working prototype are presented in the CAD_prototype2 folder.
   All parts and assembly are made on SolidWorks.
@@ -17,6 +17,6 @@
  notes:    
    OpenCR and RaspberryPi are approximated by the middle box.
 
-##MotionGenesis:
+## MotionGenesis:
   The code is running the definition of the model.
   It is still a work in progress to obtain the angular position of the motors.
