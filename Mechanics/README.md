@@ -30,7 +30,7 @@
  
    OpenCR and RaspberryPi are approximated by the middle box.
 
-## MotionGenesis:
+## Codes:
 
   the MG code is used to generate the matlab code wich is then used with an extension
   (matlab coder) to provide the c or cpp files wich will be implemented with the openCR card.
