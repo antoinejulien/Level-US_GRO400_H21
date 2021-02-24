@@ -34,4 +34,6 @@
 
   The code is running the definition of the model.
   
-  It is still a work in progress to obtain the angular position of the motors.
+  It is still a work in progress, the model is able to solve the equations of position and angles. 
+  
+  Tests are still in order to assure the efficiency.
