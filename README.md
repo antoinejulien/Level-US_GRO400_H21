@@ -1,6 +1,6 @@
 # Level_US_GRO400_H21
 ## First prototype
-<img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/python-gui/Images/Prototype1.jpg" width="720" height="480">
+<img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/python-gui/Images/Prototype1.jpg" width="520" height="480">
 
 ## How to install the Python virtual environment (on Windows)
 
