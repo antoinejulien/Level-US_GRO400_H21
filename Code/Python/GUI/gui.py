@@ -12,62 +12,62 @@ class MenuWindow(Screen):
      pass
 
 class ManualWindow(Screen):
-    
-    status = ObjectProperty(None)
-    
-    ser = serial.Serial('/dev/ttyACM0', 56600)
-    ser.flush()
+    def __init__(self, **kwargs): 
+        super(ManualWindow, self).__init__(**kwargs)
+        self.ser = serial.Serial('COM3', 57600, timeout=1)
+        self.status = ObjectProperty(None)
 
     def high(self):
         self.status.text = "Moving to\nposition high."
         line = ""
+        self.status.text = "Writing line"
+        self.ser.write(b"3")
 
-        if(ser.in_waiting >0):
-            ser.write(b"HIGH\n")
+        self.status.text = "Reading line"
+        
+        while line == "":
+            line = self.ser.read_until("\n").decode('utf-8').rstrip()
 
-            while line == "":
-                line = ser.readline().decode('utf-8').rstrip()
-                time.sleep(0.1)
+        if line == "DONE":
+            self.status.text = "Position high\nreached."
 
-            if line == "DONE":
-                self.status.text = "Position high\nreached."
-
-            if line == "ERR":
-                self.status.text = "An error\noccured."
+        else:
+            self.status.text = "An error\noccured."
 
     def mid(self):
         self.status.text = "Moving to\nposition mid."
         line = ""
 
-        if(ser.in_waiting >0):
-            ser.write(b"MID\n")
+        self.status.text = "Writing line"
+        self.ser.write(b"2")
 
-            while line == "":
-                line = ser.readline().decode('utf-8').rstrip()
-                time.sleep(0.1)
+        self.status.text = "Reading line"
 
-            if line == "DONE":
-                self.status.text = "Position mid\nreached."
+        while line == "":
+            line = self.ser.read_until("\n").decode('utf-8').rstrip()
 
-            if line == "ERR":
-                self.status.text = "An error\noccured."
+        if line == "DONE":
+            self.status.text = "Position mid\nreached."
+
+        else:
+            self.status.text = "An error\noccured."
 
     def low(self):
-        self.status.text = "Moving to\nposition low."
+        self.status.text = "Moving to\nposition low."        
         line = ""
 
-        if(ser.in_waiting >0):
-            ser.write(b"LOW\n")
+        self.status.text = "Writing line"   
+        self.ser.write(b"1")
+        
+        self.status.text = "Reading line"
+        while line == "":
+            line = self.ser.read_until("\n").decode('utf-8').rstrip()
 
-            while line == "":
-                line = ser.readline().decode('utf-8').rstrip()
-                time.sleep(0.1)
+        if line == "DONE":
+            self.status.text = "Position low\nreached."
 
-            if line == "DONE":
-                self.status.text = "Position low\nreached."
-
-            if line == "ERR":
-                self.status.text = "An error\noccured."
+        else:
+            self.status.text = line
 
 class AutoWindow(Screen):
     pass
