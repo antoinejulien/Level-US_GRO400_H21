@@ -1,5 +1,7 @@
 function [Output] = anglePlaqueToAngleMoteur( anglePlaqueTop_x, anglePlaqueTop_y, hauteurPlaqueTop )
 if( nargin ~= 3 ) error( 'anglePlaqueToAngleMoteur expects 3 (not %d) command line arguments.', nargin ),  end
+if( hauteurPlaqueTop < 75 || hauteurPlaqueTop > 210)
+end
 %===========================================================================
 % File: anglePlaqueToAngleMoteur.m created Feb 23 2021 by MotionGenesis 5.9.
 % Portions copyright (c) 2009-2020 Motion Genesis LLC.  Rights reserved.
@@ -37,8 +39,8 @@ distancePlaqueTop_x             =  0.0;                    % UNITS              
 distancePlaqueTop_y             =  0.0;                    % UNITS               Guess
 
 absError                        =  1.0E-09;                %                     Absolute Error
-shouldPrintToScreen             =  1;                      % NoUnits             0 or 1
-shouldPrintToFile               =  1;                      % NoUnits             0 or 1
+shouldPrintToScreen             =  0;                      % NoUnits             0 or 1
+shouldPrintToFile               =  0;                      % NoUnits             0 or 1
 %-------------------------------+--------------------------+-------------------+-----------------
 
 % Unit conversions.  UnitSystem: kg, meter, second.
