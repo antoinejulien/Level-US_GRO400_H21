@@ -1,4 +1,7 @@
+
+(gro401_venv) C:\Git\Level-US_GRO400_H21>C:\Git\Level-US_GRO400_H21\gro400_venv\Scripts\python -m pip freeze 
 appdirs==1.4.4
+arrow==0.17.0
 astroid==2.4.2
 certifi==2020.12.5
 chardet==4.0.0
@@ -20,6 +23,9 @@ Pillow==8.1.0
 Pygments==2.7.4
 pylint==2.6.0
 pypiwin32==223
+pyserial==3.5
+python-dateutil==2.8.1
+python-time==0.3.0
 pywin32==300
 requests==2.25.1
 six==1.15.0
