@@ -8,4 +8,4 @@
 
 
 # Wiring: 
-  See bloc scheme for connections. 
+  See image above for the connections. 
