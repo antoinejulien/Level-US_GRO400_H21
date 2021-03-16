@@ -146,7 +146,7 @@ if(choice == 1){
 	
 	solve( [motionconstraint], distancePlaqueTop_x = 0 mm, distancePlaqueTop_y = 0 mm, anglePlaqueTop_z = 0 mm, angleMot1 = 0 deg, angleMot2 = 0 deg, angleMot3 = 0 deg, angleBras1Middle = 41.19 deg, angleBras2Middle = 41.19 deg, angleBras3Middle = 41.19 deg)
 	outputencode angleMot1 deg, anglemot2 deg, anglemot3 deg
-	code nonlinear([motionconstraint], distancePlaqueTop_x, distancePlaqueTop_y, anglePlaqueTop_z, angleMot1, angleMot2, angleMot3, angleBras1Middle, angleBras2Middle, angleBras3Middle) var.m(anglePlaqueTop_x deg, anglePlaqueTop_y deg, hauteurPlaqueTop mm)
+	code nonlinear([motionconstraint], distancePlaqueTop_x, distancePlaqueTop_y, anglePlaqueTop_z, angleMot1, angleMot2, angleMot3, angleBras1Middle, angleBras2Middle, angleBras3Middle) var.c(anglePlaqueTop_x deg, anglePlaqueTop_y deg, hauteurPlaqueTop mm)
 	pause
 	anglePlaqueTop_x
 	
@@ -156,43 +156,4 @@ if(choice == 1){
 if(choice == 2){
 	quit
 }
-
-
-
-%--------------------------------------------------------------------
-%   Initial values for variables (Bras1Debut.Bras3Debut., for ODE command).
-%Input  	qA = 0  	deg, 	 qA' = 0	deg/sec	%'roue
-%Input  	qB = 5  	deg, 	 qB' = 0 	deg/sec %'pendule
-%input 	X  = 0  	Bras3Fin,  	 X'  = 0.00 	Bras3Fin/s %'
-
-
-%--------------------------------------------------------------------
-% %   Other calculations (distance, energy, momentum, etc.).
-% xQ = Dot(  Q.GetPosition(No),  Nx>  )
-% KE = System.GetKineticEnergy()
-% PEgravity = System.GetForceGravityPotentialEnergy( -Bras3Debut*Ny>, No )
-% MechanicalEnergy = KE + PEgravity
-% Bras1Fin> = System.GetAngularMomentum( aboutPoint )
-% Bras2Fin> = EvaluateToNumber( System.GetLinearMomentum() )
-%--------------------------------------------------------------------
-%   List output quantities (Bras1Debut.Bras3Debut., for ODE command).
-% Output      t sec,  x Bras3Fin,  Fx Newton,  Fy Newton
-% OutputPlot  t sec,  qA degrees,  qB degrees, X mm%, An.getdistance(No) mm, Tmot N/Bras3Fin
-% variable xtip = dot(Nx>,Bc.getposition(No))
-% variable ztip = dot(Nz>,Bc.getposition(No))
-
-% outputEncode x Bras3Fin, qA deg, qB deg,x' Bras3Fin/s, qA' deg/s, qB' deg/s, x'' Bras3Fin/sec^2, qA'' deg/sec^2, qB'' deg/sec^2
-
-% Code Algebraic() RobotSimulink.Bras3Fin( x Bras3Fin, qA deg, qB deg, x' Bras3Fin/s, qA' deg/s, qB' deg/s,Tmot N/Bras3Fin, mC, zplex)%'
-%output t sec, x Bras3Fin, xtip Bras3Fin,ztip Bras3Fin
-%[Dynamics;motionconstraint],qA'',qB'',X'',Fx,Fz,Fwx,Fwz
-%--------------------------------------------------------------------
-%   Solve ODEs (or auto-generate MATLAB, mot2, Fortran, ... code).
-
-%Input  tFinal = 1 sec,  tStep = 0.01 sec,  absError = 1.0E-08
-%ODE([Dynamics;motionconstraint],qA'',qB'',X'',Fx,Fz,Fwx,Fwz)  DynamiqueRobot.Bras3Fin 
-%--------------------------------------------------------------------
-%   Record input together with responses.
-% Save  DynamiqueRobot.html
-Quit
 
