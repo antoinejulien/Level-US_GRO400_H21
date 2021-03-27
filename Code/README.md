@@ -11,6 +11,11 @@ The app contains 3 windows:
 3. Automatic Window, not yet fully implemented, but will eventually have data for the automatic control of the platform.
 4. <img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/master/Images/automatic_window_R1.png?raw=true" width="480" height="320">
 
+## OpenCR code
+
+It is recommended to use the desktop Arduino IDE to upload the .ino code into the OpenCR. You can follow this link https://emanual.robotis.com/docs/en/parts/controller/opencr10/ for a step by step downlaod (section 4). In the Arduino IDE app, you will also need to download the Dynamixel library. To do so :
+  - Go to Tools -> Manage libraries ... -> Make sure that option all in selected in both boxes -> Type Dynamixel2Arduino and download the library.
+You will then be able to use the librairy to communicate easily with the dynamixel motors. There are a few example codes in the File -> Example -> OpenCR section.  
 
 ## Communication
 
