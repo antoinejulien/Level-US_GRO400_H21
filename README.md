@@ -3,7 +3,9 @@ This is an opensource project made by a team of undergratuate students from Sher
 
 ## READMEs
 We chose to create a readme for every major section. This way, information is separated and easier to find. You can always click the next few links to get directly there :
-  - Code README : [Code README](Code/README.md)
+  - [Code README](Code/README.md)
+  - [Electronics README](Electronics/README.md)
+  - [Mechanics README](Mechanics/README.md)
 
 ## Prototype
 <img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/python-gui/Images/Prototype1.jpg" width="520" height="480">
