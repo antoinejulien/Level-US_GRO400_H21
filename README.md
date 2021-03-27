@@ -1,5 +1,9 @@
 # Level_US_GRO400_H21
-This is an opensource project made by a team of undergratuate students from Sherbrooke University. This project is basically a self-leveling platform controled with an embedded system. Our purpose is to create a platform that will automatically balanced itself according to the acceleration applied. For example, this project could be applied on boat's tables that could have to follow big waves movements. The table could then automatically balance so nothing would be spilled. We are also working on a manual mode that could allow full user control. This feature is still in progress.
+This is an opensource project made by a team of undergratuate students from Sherbrooke University. This project is basically a self-leveling platform controled with an embedded system. Our purpose is to create a platform that will automatically balance itself according to the acceleration applied. For example, this project could be applied on boat's tables that could have to follow big waves movements. The table could then automatically balance so nothing would be spilled. We are also working on a manual mode that could allow full user control. This feature is still in progress.
+
+## READMEs
+We chose to create a readme for every major section. This way, information is separated and easier to find. You can always click the next few links to get directly there :
+  - Code README : [Code README](Code/README.md)
 
 ## Prototype
 <img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/python-gui/Images/Prototype1.jpg" width="520" height="480">
