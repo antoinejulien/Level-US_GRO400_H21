@@ -706,6 +706,10 @@ void anglePlaqueToAngleMoteur(double anglePlaqueTop_x, double anglePlaqueTop_y,
   double MaxErrorInConvergence;
   double b_Output[13];
 
+  printf("in the function \n");
+  printf("%lf \n",anglePlaqueTop_x);
+  printf("%lf \n",anglePlaqueTop_y);
+  printf("%lf \n",hauteurPlaqueTop);
   /* =========================================================================== */
   /*  File: anglePlaqueToAngleMoteur.m created Feb 23 2021 by MotionGenesis 5.9. */
   /*  Portions copyright (c) 2009-2020 Motion Genesis LLC.  Rights reserved. */
