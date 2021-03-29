@@ -8,21 +8,15 @@
 
 
 void getAngles(double anglex,double angley,double hauteur,double angles[3]){
-	printf("in the function \n");
-	printf("%lf \n",anglex);
-	printf("%lf \n",angley);
-	printf("%lf \n",hauteur);
+	/*printf("in the function \n");
+	printf("angle x :%lf degres\n",anglex);
+	printf("angle y :%lf degres\n",angley);
+	printf("hauteur :%lf mm\n",hauteur);*/
 	anglePlaqueToAngleMoteur_initialize();
-	printf("after initialize\n");
-	printf("%lf \n",anglex);
-	printf("%lf \n",angley);
-	printf("%lf \n",hauteur);
+
 
 	anglePlaqueToAngleMoteur(anglex,angley,hauteur,angles);
-	printf("after funtion \n");
-	printf("%lf \n",anglex);
-	printf("%lf \n",angley);
-	printf("%lf \n",hauteur);
+
 	
 	//printf("%lf \n",angles[0]);
 	//printf("%lf \n",angles[1]);
