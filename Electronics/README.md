@@ -8,4 +8,4 @@
 
 
 # Wiring: 
-  < img src = "https://github.com/antoinejulien/Level-US_GRO400_H21/blob/Electronics/Electronics wiring.png" width = "520" height = "480" >
+  <img src = "https://github.com/antoinejulien/Level-US_GRO400_H21/blob/Electronics/Electronics wiring.png" width = "520" height = "480">
