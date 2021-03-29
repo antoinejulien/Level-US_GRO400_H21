@@ -8,4 +8,4 @@
 
 
 # Wiring: 
-  ![Wiring](Electronics wiring.png)
+  ![Wiring](Electronics_wiring.png)
