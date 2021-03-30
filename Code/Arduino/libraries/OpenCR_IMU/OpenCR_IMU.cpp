@@ -11,10 +11,16 @@ Class to use the OpenCR IMU
  * OpenCR_IMU constructor
  * @Param: IMUangles array containing the IMU angles
  */
- 
 OpenCR_IMU::OpenCR_IMU()
 {
-	//IMU.begin();
+}
+
+/*
+ * Initiate the IMU
+ */
+int OpenCR_IMU::initIMU()
+{
+	IMU.begin();
 	imu_time = 0;
 	
 	//OpenCR IMU calibration
@@ -28,6 +34,8 @@ OpenCR_IMU::OpenCR_IMU()
 	//WARNING: There is a small delay before the IMU calibrates 
 	//accordingly. First few values might be wrong.
 	OpenCR_IMU::updateAngles();
+	
+	return 0;
 }
 
 /*
@@ -61,9 +69,14 @@ int OpenCR_IMU::updateAngles()
 
 /*
  * Getter for the IMU angles
- * @Return: array of floats containing the IMU angles
+ * @Param: inputArray array of float given by the OpenCR
  */
-float* OpenCR_IMU::getAngles()
+int OpenCR_IMU::getAngles(float inputArray[2])
 {
-	return IMUangles;
+	for(int i = 0; i < 3; i++)
+	{
+		inputArray[i] = IMUangles[i];
+	}
+	
+	return 0;
 }
