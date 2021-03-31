@@ -1,5 +1,4 @@
 from getAngles_cffi import ffi,lib
-import ctypes
 import time
 
 

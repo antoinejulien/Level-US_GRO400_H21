@@ -17,8 +17,9 @@ class OpenCR_IMU
     public:
         OpenCR_IMU();
 		
+		int initIMU();
 		int updateAngles();
-		float* getAngles();
+		int getAngles(float inputArray[2]);
 		
 	private:
 		cIMU IMU;

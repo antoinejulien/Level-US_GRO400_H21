@@ -37,7 +37,7 @@ int SerialCommunication::serialEncoder(float IMUangles[2])
  * @Return: always returns 0
  */
  
-int SerialCommunication::serialDecoder(int commands[3])
+int SerialCommunication::serialDecoder(float commands[3])
 {
 	byte inputBytes[2];
 	Serial.readBytes(inputBytes, 2);

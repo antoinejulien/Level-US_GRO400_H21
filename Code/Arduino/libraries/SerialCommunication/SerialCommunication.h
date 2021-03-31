@@ -17,7 +17,7 @@ class SerialCommunication
         SerialCommunication();
 		
 		int serialEncoder(float IMUangles[2]);
-		int serialDecoder(int commands[3]);
+		int serialDecoder(float commands[3]);
 };
 
 #endif //SerialCommunication_H_

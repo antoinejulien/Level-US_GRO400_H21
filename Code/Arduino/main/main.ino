@@ -12,9 +12,9 @@ Requirements: This code requires the OpenCR librairies.
 
 /*------------------------------ Librairies ---------------------------------*/
 #include <DynamixelWorkbench.h>
-#include <IMU.h>
 #include <math.h>
 #include <SerialCommunication.h>
+#include <OpenCR_IMU.h>
 
 /*--------------------------- Global variables ------------------------------*/
 #if defined(__OPENCM904__)
@@ -37,22 +37,18 @@ int motorSpeed = 50;
 uint8_t motorsID[2];
 
 /* OpenCR IMU variables */
-cIMU IMU;
-static uint32_t tTime[3];
-static uint32_t imu_time = 0;
+OpenCR_IMU ocrIMU;
 float IMUangles[2];
 
 /*-------------------------- Function headers -------------------------------*/
-/****** Function headers ******/
 void moveMotors(float motor1_angle, float motor2_angle, float motor3_angle);
-void updateOpenCR_IMU_Angles(float angles[2]);
 
 /*-------------------------------- Setup ------------------------------------*/
 void setup() 
 {
   Serial.setTimeout(50);
   Serial.begin(115200);
-  IMU.begin();
+  ocrIMU.initIMU();
 
   const char *log;
   bool result = false;
@@ -90,37 +86,25 @@ void setup()
 
   //Delay to let the motors move to the initial position
   delay(2000);
-
-  //OpenCR IMU calibration
-  IMU.SEN.acc_cali_start();
-  while( IMU.SEN.acc_cali_get_done() == false )
-  {
-    IMU.update();
-  }
-
-  //WARNING: There is a small delay before the IMU calibrates 
-  //accordingly. First few values might be wrong.
-  updateOpenCR_IMU_Angles(IMUangles);
 }
 
 /*--------------------------------- Loop ------------------------------------*/
 void loop() 
 {   
-  int commands[3];
+  float commands[3];
   
-  updateOpenCR_IMU_Angles(IMUangles);
+  ocrIMU.updateAngles();
   
-  if (Serial.available() > 0) 
-  { 
+  if(Serial.available() > 0) 
+  {
     serial.serialDecoder(commands);
     //moveMotors(commands[0], commands[1], commands[2]);
 
     //Update IMU angles before sending the values
-    updateOpenCR_IMU_Angles(IMUangles);
+    ocrIMU.updateAngles();
+    ocrIMU.getAngles(IMUangles);
     
-    serial.serialEncoder(IMUangles);
-
-    
+    serial.serialEncoder(IMUangles);   
   }
 }
 
@@ -136,28 +120,4 @@ void moveMotors(float motor1_angle, float motor2_angle, float motor3_angle)
   dxl_wb.goalPosition(motorsID[0], motor1_angle);
   dxl_wb.goalPosition(motorsID[1], motor2_angle);
   dxl_wb.goalPosition(motorsID[2], motor3_angle);
-}
-
-/*
- * Get the OpenCR IMU angles
- * @Param: angles array of floats of the OpenCR IMU angles 
- */
-void updateOpenCR_IMU_Angles(float IMUangles[2])
-{
-  if( (millis()-tTime[0]) >= 500 )
-  {
-    tTime[0] = millis();
-  }
-
-  tTime[2] = micros();
-  if( IMU.update() > 0 ) imu_time = micros()-tTime[2];
-
-  if( (millis()-tTime[1]) >= 50 )
-  {
-    tTime[1] = millis();
-    
-    IMUangles[0] = IMU.rpy[0];
-    IMUangles[1] = IMU.rpy[1];
-    IMUangles[2] = IMU.rpy[2];
-  }
 }
