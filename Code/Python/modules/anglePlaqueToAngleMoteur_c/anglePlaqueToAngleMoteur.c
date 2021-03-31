@@ -771,13 +771,13 @@ void anglePlaqueToAngleMoteur(double anglePlaqueTop_x, double anglePlaqueTop_y,
   hauteurAxeMoteur.contents = 0.02863;
 
   /*   Converted from mm  */
-  longueurBras1.contents = 0.07619999999999999+0.05;
+  longueurBras1.contents = 0.07619999999999999 + 0.0245;
 
   /*   Converted from in  */
-  longueurBras2.contents = 0.1016+0.015;
+  longueurBras2.contents = 0.1016+0.015 + 0.0245;
 
   /*   Converted from in  */
-  rayonDistanceAncrageEtPivot.contents = 0.14833000000000002 + .02 -0.08;
+  rayonDistanceAncrageEtPivot.contents = 0.14833000000000002 + .02 -0.049;
   rayonDistanceMoteur.contents = 0.14833000000000002;
 
   /*   Converted from mm  */
