@@ -1,0 +1,340 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+#: import Factory kivy.factory.Factory
+
+<Label>
+    font_size: 32
+    text_size : self.size
+    halign: "center"
+    valign: "middle"
+    markup: True
+
+<TitleLabel@Label>
+    font_size: 48
+    halign: "center"
+    valign: "middle"
+    markup: True
+    bold: True
+    size_hint: (1, 0.1)
+    pos_hint: {"left": 1, "top": 1}
+
+<MenuButton@Button>
+    font_size: 32
+
+<ManualButton@Button>
+    font_size: 32
+
+<BackgroundAuto@Widget>
+    background_color: 0, 0, 0, 
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<AutoLabel@Label+BackgroundAuto>
+    canvas.before:
+        Color:
+            rgba: 0,0,0,1
+        Line:
+            width: 1.05
+            rectangle: self.x, self.y, self.width, self.height
+    
+    background_color: 85/256, 85/256, 85/256, 1
+
+<PortPopup>
+    auto_dismiss: False
+    size_hint: (0.5, 0.5)
+    title: "Port error"
+    
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: (1, 1)
+
+        Label:
+            text: "No port is detected, can't enter operationnal mode"
+
+        Button:
+            text: "Ok"
+            on_release: root.dismiss()
+
+WindowManager:
+    canvas.before:
+        BorderImage:
+            source: "static\\background.jpg"
+            pos: self.pos
+            size: self.size
+    transition: NoTransition()
+    DummyWindow:
+    MenuWindow:
+    ManualWindow:
+    AutoWindow:
+
+<MenuWindow>
+    name: "menu"
+
+    port_status:port_status
+    reco_button:reco_button
+
+    on_pre_enter: root.check_port()
+
+    FloatLayout:
+        size: root.width, root.height
+
+        TitleLabel:
+            text: "Menu"
+
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            size_hint: (0.60, 0.60)
+            pos_hint: {"x": 0.05, "top": 0.8}
+
+            Label:
+                text: "Choose the desired\noperation mode"
+
+            MenuButton:
+                text: "Manual"
+                on_release: 
+                    root.goto_manual()
+
+            MenuButton:
+                text: "Automatic"
+                on_release: 
+                    app.root.current = "auto_window"
+
+        Label:
+            id: port_status
+            text : ""
+            size_hint: (0.25, 0.125)
+            pos_hint: {"x": 0.70, "top": 0.275}
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: (0.25, 0.125)
+            pos_hint: {"x": 0.70, "top": 0.15}
+
+            Button:
+                id: reco_button
+                text: "Reconnect"
+                size_hint: (0.45, 1)
+                pos_hint: {"x": 0, "top": 1}
+                on_release: 
+                    root.reconnect()
+
+            Button:
+                id: check_button
+                text: "Check status"
+                size_hint: (0.45, 1)
+                pos_hint: {"x": 0.55, "top": 1}
+                on_release: 
+                    root.check_port()
+
+<ManualWindow>
+    name: "manual_window"
+
+    status:status
+    
+    FloatLayout:
+        size: root.width, root.height
+
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            size_hint: (0.425, 0.75)
+            pos_hint: {"x": 0.05, "top": 0.875}
+
+            ManualButton:
+                text: "High"
+                on_release: 
+                    root.high()
+
+            ManualButton:
+                text: "Middle"
+                on_release: 
+                    root.mid()
+
+            ManualButton:
+                text: "Low"
+                on_release: 
+                    root.low()
+
+        Label:
+            id: status
+            text : "Status"
+            size_hint: (0.425, 0.75)
+            pos_hint: {"x": 0.525, "top": 0.875}
+
+
+        TitleLabel:
+            text: "Manual mode"
+
+        Button:
+            text: "Menu"
+            font_size: 16
+            size_hint: (None, None)
+            size: (75,25)
+            pos_hint: {"left": 1, "bottom": 1}
+            on_release: 
+                app.root.current = "menu"
+
+<AutoWindow>
+    name: "auto_window"
+
+    x_value:x_value
+
+    FloatLayout:
+        size: root.width, root.height
+
+        TitleLabel:
+            text: "Automatic mode"
+        
+        Button:
+            text: "Menu"
+            font_size: 16
+            size_hint: (None, None)
+            size: (75,25)
+            pos_hint: {"left": 1, "bottom": 1}
+            on_release: 
+                app.root.current = "menu"
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: (0.60, 0.8)
+            pos_hint: {"x": 0.05, "top": 0.85}
+
+            Label:
+                text: "Position read"
+                size_hint: (1, 0.1)
+                pos_hint: {"x": 0, "top": 1}
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: (1, 0.35)
+                pos_hint: {"x": 0, "top": 0.85}
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        text : "X"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        id: x_value
+                        text : "Value"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 0.45}
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0.35, "top": 1}
+
+                    AutoLabel:
+                        text : "Y"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        text : "Value"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 0.45}
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0.7, "top": 1}
+
+                    AutoLabel:
+                        text : "Z"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        text : "Value"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 0.45}
+
+            Label:
+                text: "Motor positions"
+                size_hint: (1, 0.1)
+                pos_hint: {"x": 0, "top": 0.45}
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: (1, 0.35)
+                pos_hint: {"x": 0, "top": 0.35}
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        text : "Motor 1"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        text : "Value"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 0.45}
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0.35, "top": 1}
+
+                    AutoLabel:
+                        text : "Motor 2"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        text : "Value"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 0.45}
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0.7, "top": 1}
+
+                    AutoLabel:
+                        text : "Motor 2"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        text : "Value"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 0.45}
+
+            
+
+
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: (0.25, 0.35)
+            pos_hint: {"x": 0.7, "top": 0.4}
+
+            Button:
+                id: start_button
+                text: "Start"
+                size_hint: (1, 0.45)
+                pos_hint: {"x": 0, "top": 1}
+                on_press: 
+                    root.start_auto()
+
+            Button:
+                id: stop_button
+                text: "Stop"
+                size_hint: (1, 0.45)
+                pos_hint: {"x": 0, "top": 0.45}
+                on_press: 
+                    root.stop_auto()
