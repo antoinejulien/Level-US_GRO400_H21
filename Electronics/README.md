@@ -10,4 +10,4 @@
 
 
 # Wiring: 
-  ![Wiring](Electric_wiring.png)
+  ![Wiring](Electric_Wiring.png)
