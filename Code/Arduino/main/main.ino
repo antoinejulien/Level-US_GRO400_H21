@@ -15,6 +15,8 @@ Requirements: This code requires the OpenCR librairies.
 #include <math.h>
 #include <SerialCommunication.h>
 #include <OpenCR_IMU.h>
+#include "Wire.h"
+#include <MPU6050_light.h>
 
 /*--------------------------- Global variables ------------------------------*/
 #if defined(__OPENCM904__)
@@ -34,21 +36,66 @@ DynamixelWorkbench dxl_wb;
 
 int initialMotorsPos = 0;
 int motorSpeed = 50;
-uint8_t motorsID[2];
+uint8_t motorsID[3];
 
 /* OpenCR IMU variables */
-OpenCR_IMU ocrIMU;
-float IMUangles[2];
+OpenCR_IMU OCRimu_;
+float OCRimu_angles[3];
+
+/* MPU6050 variables */
+MPU6050 mpu(Wire);
+float MPU6050angles[3];
 
 /*-------------------------- Function headers -------------------------------*/
 void moveMotors(float motor1_angle, float motor2_angle, float motor3_angle);
+void getMPU6050angles(float angles[3]);
 
+/*------------------------------- Functions ---------------------------------*/
+/*
+ * Moves the motors to the desired angle
+ * @Param: motor1_angle motor 1 desired angle
+ *         motor2_angle motor 2 desired angle
+ *         motor3_angle motor 3 desired angle
+ */
+void moveMotors(float motor1_angle, float motor2_angle, float motor3_angle)
+{
+  dxl_wb.goalPosition(motorsID[0], motor1_angle);
+  dxl_wb.goalPosition(motorsID[1], motor2_angle);
+  dxl_wb.goalPosition(motorsID[2], motor3_angle);
+}
+
+void getMPU6050angles(float angles[3])
+{
+  angles[0] = mpu.getAngleX();
+  angles[1] = mpu.getAngleY();
+  angles[2] = mpu.getAngleZ();
+}
 /*-------------------------------- Setup ------------------------------------*/
 void setup() 
 {
   Serial.setTimeout(50);
   Serial.begin(115200);
-  ocrIMU.initIMU();
+
+  Wire.begin();
+  
+  byte status = mpu.begin();
+  Serial.print(F("MPU6050 status: "));
+  Serial.println(status);
+
+  //Stop everything if could not connect to MPU6050
+  while(status!=0){ }
+  
+  Serial.println(F("Calculating offsets, do not move MPU6050"));
+  delay(1000);
+
+  //Uncomment this line if the MPU6050 is mounted upside-down
+  mpu.upsideDownMounting = true; 
+
+  //MPU6050 gyroscope and accelerometer
+  mpu.calcOffsets();
+  Serial.println("Done!\n");
+
+  OCRimu_.initIMU();
 
   const char *log;
   bool result = false;
@@ -93,31 +140,21 @@ void loop()
 {   
   float commands[3];
   
-  ocrIMU.updateAngles();
-  
+  OCRimu_.updateAngles();
+  mpu.update();
+
   if(Serial.available() > 0) 
   {
     serial.serialDecoder(commands);
     //moveMotors(commands[0], commands[1], commands[2]);
 
     //Update IMU angles before sending the values
-    ocrIMU.updateAngles();
-    ocrIMU.getAngles(IMUangles);
-    
-    serial.serialEncoder(IMUangles);   
-  }
-}
+    OCRimu_.updateAngles();
+    OCRimu_.getAngles(OCRimu_angles);
 
-/*------------------------------- Functions ---------------------------------*/
-/*
- * Moves the motors to the desired angle
- * @Param: motor1_angle motor 1 desired angle
- *         motor2_angle motor 2 desired angle
- *         motor3_angle motor 3 desired angle
- */
-void moveMotors(float motor1_angle, float motor2_angle, float motor3_angle)
-{
-  dxl_wb.goalPosition(motorsID[0], motor1_angle);
-  dxl_wb.goalPosition(motorsID[1], motor2_angle);
-  dxl_wb.goalPosition(motorsID[2], motor3_angle);
+    mpu.update();
+    getMPU6050angles(MPU6050angles);
+    
+    serial.serialEncoder(OCRimu_angles, MPU6050angles);   
+  }
 }

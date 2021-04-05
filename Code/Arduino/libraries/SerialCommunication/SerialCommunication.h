@@ -14,9 +14,9 @@ and the python code.
 class SerialCommunication
 {
     public:
-        SerialCommunication();
+        SerialCommunication(){};
 		
-		int serialEncoder(float IMUangles[2]);
+		int serialEncoder(float OpenCRangles[2], float MPU6050angles[2]);
 		int serialDecoder(float commands[3]);
 };
 

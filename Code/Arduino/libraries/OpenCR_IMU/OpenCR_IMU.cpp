@@ -71,7 +71,7 @@ int OpenCR_IMU::updateAngles()
  * Getter for the IMU angles
  * @Param: inputArray array of float given by the OpenCR
  */
-int OpenCR_IMU::getAngles(float inputArray[2])
+int OpenCR_IMU::getAngles(float inputArray[3])
 {
 	for(int i = 0; i < 3; i++)
 	{

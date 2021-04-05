@@ -19,13 +19,13 @@ class OpenCR_IMU
 		
 		int initIMU();
 		int updateAngles();
-		int getAngles(float inputArray[2]);
+		int getAngles(float inputArray[3]);
 		
 	private:
 		cIMU IMU;
 		uint32_t tTime[3];
 		uint32_t imu_time;
-		float IMUangles[2];
+		float IMUangles[3];
 };
 
 #endif //OpenCR_IMU_H_

@@ -8,23 +8,28 @@ and the python code.
 
 #include "SerialCommunication.h"
 
-SerialCommunication::SerialCommunication()
-{
-}
-
 /*
  * Encodes IMU values to send to the python script
- * @Param: IMUangles angles of the OpenCR IMU
+ * @Param: OpenCRangles angles of the OpenCR IMU
+ * 		   MPU6050angleX X angle of the MPU6050 
+ *         MPU6050angleY Y angle of the MPU6050 
  * @Return: always returns 0
  */
  
-int SerialCommunication::serialEncoder(float IMUangles[2])
+int SerialCommunication::serialEncoder(float OpenCRangles[2], float MPU6050angles[2])
 {
-	Serial.print(IMUangles[0]);
+	Serial.print(OpenCRangles[0]);
 	Serial.print(" ");
-	Serial.print(IMUangles[1]);
+	Serial.print(OpenCRangles[1]);
 	Serial.print(" ");
-	Serial.print(IMUangles[2]);
+	Serial.print(OpenCRangles[2]);
+	Serial.print(" ");
+	
+	Serial.print(MPU6050angles[0]);
+	Serial.print(" ");
+	Serial.print(MPU6050angles[1]);
+	Serial.print(" ");
+	Serial.print(MPU6050angles[2]);
 	Serial.print("\n");
 	
 	return 0;
