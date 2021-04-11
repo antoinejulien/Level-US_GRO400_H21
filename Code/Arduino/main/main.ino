@@ -30,13 +30,16 @@ SerialCommunication serial;
 /* Motors variables */
 #define MOTORS_BAUDRATE  57600
 #define DXL_ID_1    215
-#define DXL_ID_2    209
-#define DXL_ID_3    202
+#define DXL_ID_2    202
+#define DXL_ID_3    209
 DynamixelWorkbench dxl_wb;
 
-int initialMotorsPos = 0;
-int motorSpeed = 50;
-uint8_t motorsID[3];
+int initialMotorsPos = 180; //Angles go from 200 (which will be 0 -20 from the horizontal)
+                            //and 90 (which is the vertical)
+int motorSpeed = 100;
+uint8_t motor1 = DXL_ID_1;
+uint8_t motor2 = DXL_ID_2;
+uint8_t motor3 = DXL_ID_3;
 
 /* OpenCR IMU variables */
 OpenCR_IMU OCRimu_;
@@ -49,6 +52,7 @@ float MPU6050angles[3];
 /*-------------------------- Function headers -------------------------------*/
 void moveMotors(float motor1_angle, float motor2_angle, float motor3_angle);
 void getMPU6050angles(float angles[3]);
+int32_t degToInt(float angle);
 
 /*------------------------------- Functions ---------------------------------*/
 /*
@@ -59,41 +63,58 @@ void getMPU6050angles(float angles[3]);
  */
 void moveMotors(float motor1_angle, float motor2_angle, float motor3_angle)
 {
-  dxl_wb.goalPosition(motorsID[0], motor1_angle);
-  dxl_wb.goalPosition(motorsID[1], motor2_angle);
-  dxl_wb.goalPosition(motorsID[2], motor3_angle);
+  dxl_wb.goalPosition(motor1, degToInt(motor1_angle));
+  dxl_wb.goalPosition(motor2, degToInt(motor2_angle));
+  dxl_wb.goalPosition(motor3, degToInt(motor3_angle));
 }
 
+/*
+ * Get the angles from the MPU6050
+ * @Param: angles array of float containing the angles
+ */
 void getMPU6050angles(float angles[3])
 {
   angles[0] = mpu.getAngleX();
   angles[1] = mpu.getAngleY();
   angles[2] = mpu.getAngleZ();
 }
+
+/*
+ * Transfer float angles into int angles
+ * @Param: angle angle to transform
+ * @Return: return the angle in int32_t
+ */
+int32_t degToInt(float angle)
+{
+  return (int32_t)(angle*4097/360);
+}
 /*-------------------------------- Setup ------------------------------------*/
 void setup() 
 {
-  Serial.setTimeout(50);
+  Serial.setTimeout(5);
   Serial.begin(115200);
 
-  Wire.begin();
-  
-  byte status = mpu.begin();
-  Serial.print(F("MPU6050 status: "));
-  Serial.println(status);
-
-  //Stop everything if could not connect to MPU6050
-  while(status!=0){ }
-  
-  Serial.println(F("Calculating offsets, do not move MPU6050"));
-  delay(1000);
-
-  //Uncomment this line if the MPU6050 is mounted upside-down
-  mpu.upsideDownMounting = true; 
-
-  //MPU6050 gyroscope and accelerometer
-  mpu.calcOffsets();
-  Serial.println("Done!\n");
+  // All commented code are for the second IMU.
+  // Uncommet if the MPU6050 is being used. Code
+  // will return current angles.
+  //  Wire.begin();
+  //  
+  //  byte status = mpu.begin();
+  //  Serial.print(F("MPU6050 status: "));
+  //  Serial.println(status);
+  //
+  //  //Stop everything if could not connect to MPU6050
+  //  while(status!=0){ }
+  //  
+  //  Serial.println(F("Calculating offsets, do not move MPU6050"));
+  //  delay(1000);
+  //
+  //  //Uncomment this line if the MPU6050 is mounted upside-down
+  //  mpu.upsideDownMounting = true; 
+  //
+  //  //MPU6050 gyroscope and accelerometer
+  //  mpu.calcOffsets();
+  //  Serial.println("Done!\n");
 
   OCRimu_.initIMU();
 
@@ -102,34 +123,25 @@ void setup()
   uint16_t model_number = 0;
   float Angle;
 
-  //DXL motors initialization
-  motorsID[0] = DXL_ID_1;
-  motorsID[1] = DXL_ID_2;
-  motorsID[2] = DXL_ID_3;
-
   result = dxl_wb.init(DEVICE_NAME, MOTORS_BAUDRATE, &log);
 
-  for(int i = 0; i < 2; i++)
-  {
-    dxl_wb.ping(motorsID[i], &model_number, &log);
-  }
-  
-  for(int i = 0; i < 2; i++)
-  {
-    result = dxl_wb.jointMode(motorsID[i], motorSpeed, 0, &log);
-    
-    if (result == false)
-    {
-      //Failed to change to joint mode
-    }
-    else
-    {
-      //Succeed to change to joint mode
-      //Setting motors to initial position 
-      Angle = initialMotorsPos*2*PI/360;
-      moveMotors(Angle, Angle, Angle);
-    }
-  }
+  //Ping motors to make sure they are available
+  dxl_wb.ping(motor1, &model_number, &log);
+  dxl_wb.ping(motor2, &model_number, &log);
+  dxl_wb.ping(motor3, &model_number, &log);
+
+  //Switch motors movement to joint mode
+  dxl_wb.jointMode(motor1, motorSpeed, 0, &log);
+  dxl_wb.jointMode(motor2, motorSpeed, 0, &log);
+  dxl_wb.jointMode(motor3, motorSpeed, 0, &log);
+
+  //Activate torque on the motors
+  dxl_wb.torqueOn(motor1);
+  dxl_wb.torqueOn(motor2);
+  dxl_wb.torqueOn(motor3);
+
+  //Set an initial motor angle
+  moveMotors(initialMotorsPos, initialMotorsPos, initialMotorsPos);
 
   //Delay to let the motors move to the initial position
   delay(2000);
@@ -141,20 +153,24 @@ void loop()
   float commands[3];
   
   OCRimu_.updateAngles();
-  mpu.update();
+  //mpu.update();
 
   if(Serial.available() > 0) 
   {
-    serial.serialDecoder(commands);
-    //moveMotors(commands[0], commands[1], commands[2]);
+    if(serial.serialDecoder(commands) == 0)
+    {
+      moveMotors(commands[0], commands[1], commands[2]);
+    }
+    else
+    {
+      //Update IMU angles before sending the values
+      OCRimu_.updateAngles();
+      OCRimu_.getAngles(OCRimu_angles);
 
-    //Update IMU angles before sending the values
-    OCRimu_.updateAngles();
-    OCRimu_.getAngles(OCRimu_angles);
-
-    mpu.update();
-    getMPU6050angles(MPU6050angles);
-    
-    serial.serialEncoder(OCRimu_angles, MPU6050angles);   
+      //mpu.update();
+      //getMPU6050angles(MPU6050angles);
+      
+      serial.serialEncoder(OCRimu_angles);   
+    }
   }
 }

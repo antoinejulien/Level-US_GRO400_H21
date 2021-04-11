@@ -16,7 +16,7 @@ class SerialCommunication
     public:
         SerialCommunication(){};
 		
-		int serialEncoder(float OpenCRangles[2], float MPU6050angles[2]);
+		int serialEncoder(float OpenCRangles[2]);
 		int serialDecoder(float commands[3]);
 };
 
