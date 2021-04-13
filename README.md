@@ -7,8 +7,9 @@ We chose to create a README for every major section. This way, information is se
   - [Electronics README](Electronics/README.md)
   - [Mechanics README](Mechanics/README.md)
 
-## Prototype
-<img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/python-gui/Images/Prototype1.jpg" width="520" height="480">
+## Final prototype
+<img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/python-gui/Images/Platform_top" width="480" height="360">
+<img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/python-gui/Images/platform_bottom" width="480" height="360">
 
 ## How to install the Python virtual environment (on Windows)
 
