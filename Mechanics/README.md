@@ -30,9 +30,9 @@
  
    OpenCR and RaspberryPi are approximated by the middle box.
 
-## Codes:
+## Dynamic modelisation:
 
-  the MG code is used to generate the matlab code wich is then used with an extension
-  (matlab coder) to provide the c or cpp files wich will be implemented with the openCR card.
+  The MG code is used to generate the matlab code wich is then used with an extension
+  (matlab coder) to provide the .c or .cpp files wich will be implemented with the openCR card.
   
   Tests are still comming in order to assure the efficiency and to have our model limits.
