@@ -8,9 +8,7 @@ We chose to create a README for every major section. This way, information is se
   - [Mechanics README](Mechanics/README.md)
 
 ## Final prototype
-<img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/Images/Platform_top.jpg" width="480" height="360">
-
-<img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/Images/platform_bottom.jpg" width="480" height="360">
+<img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/master/Images/Platform_top.jpg" width="480" height="320"> <img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/master/Images/platform_bottom.jpg" width="480" height="320">
 
 ## How to install the Python virtual environment (on Windows)
 
