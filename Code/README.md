@@ -23,3 +23,7 @@ The MPU6050 libraries and all libraries attached were taken from another opensou
 ## Communication
 
 The app is the high-end of the program, it sends commands to the OpenCR platform for the command type and positionning. The openCR communicates information about the sensors and the motors. Information are encoded and decoded on both end. All communication is done by serial port. 
+
+## Code Specifications
+
+Make sure that the motors are labeled correctly from 1 to 3 in the arduino code. Also, motor 1's arm should be aligned with the x openCR IMU rotating axis.
