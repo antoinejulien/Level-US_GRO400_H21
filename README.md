@@ -33,12 +33,6 @@ We chose to create a README for every major section. This way, information is se
 7. Go to the newly environment folder using `cd name_venv\bin` and run `source activate` to activate the venv.
 8. Run `pip install -r /path/to/requirements_linux.txt` to install the required modules. *The requirements_linux.txt file should be downloaded with the repository in the main project folder*.
 
-
-## How to install the Python environment (on MacOS)
-
-1. If not already installed, install Python 3 from the [Python website](https://www.python.org/downloads/mac-osx/).
-2. 
-
 ### Add the venv to .gitignore
 
 We do not want the venv to be pushed to Github in case of a push.
