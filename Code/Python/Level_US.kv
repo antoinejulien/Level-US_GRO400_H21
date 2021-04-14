@@ -1,5 +1,6 @@
-#: import NoTransition kivy.uix.screenmanager.NoTransition
-#: import Factory kivy.factory.Factory
+
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import Factory kivy.factory.Factory
 
 <Button>
     font_size: 24
@@ -48,14 +49,6 @@
     
     background_color: 85/256, 85/256, 85/256, 1
 
-<PortPopup>
-    Labels:
-        text: "No port is detected, can't enter operationnal mode"
-
-    #Button:
-        #text: "Ok"
-        #on_release : root.dismiss()
-
 WindowManager:
     canvas.before:
         BorderImage:
@@ -94,12 +87,12 @@ WindowManager:
             MenuButton:
                 text: "Manual"
                 on_release: 
-                    app.root.current = "manual_window"
+                    root.goto_manual()
 
             MenuButton:
                 text: "Automatic"
                 on_release: 
-                    app.root.current = "auto_window"
+                    root.goto_auto()
 
         Labels:
             id: port_status

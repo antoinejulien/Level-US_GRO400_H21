@@ -657,7 +657,7 @@ static void c_SolveSetOfNonlinearAlgebraicE(coder_internal_ref
         }
 
         if (alphaBest == 0.0) {
-          printf("Nonlinear solver failed (alphaBest == 0)");
+          //printf("Nonlinear solver failed (alphaBest == 0)");
           fflush(stdout);
           exitg1 = true;
         } else {
@@ -771,10 +771,10 @@ void anglePlaqueToAngleMoteur(double anglePlaqueTop_x, double anglePlaqueTop_y,
   hauteurAxeMoteur.contents = 0.02863;
 
   /*   Converted from mm  */
-  longueurBras1.contents = 0.07619999999999999 + 0.0245;
+  longueurBras1.contents = 0.1016;
 
   /*   Converted from in  */
-  longueurBras2.contents = 0.1016+0.015 + 0.0245;
+  longueurBras2.contents = 0.127+0.015;
 
   /*   Converted from in  */
   rayonDistanceAncrageEtPivot.contents = 0.14833000000000002 + .0285; //-0.049;

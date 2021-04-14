@@ -34,7 +34,7 @@ SerialCommunication serial;
 #define DXL_ID_3    209
 DynamixelWorkbench dxl_wb;
 
-int initialMotorsPos = 180; //Angles go from 200 (which will be 0 -20 from the horizontal)
+int initialMotorsPos = 312; //Angles go from 200 (which will be 0 -20 from the horizontal)
                             //and 90 (which is the vertical)
 int motorSpeed = 100;
 uint8_t motor1 = DXL_ID_1;

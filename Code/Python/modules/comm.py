@@ -4,11 +4,15 @@ import _struct as stc
 class serialport():
 
     def __init__(self, port, baud, tout):
+        self.port_ = port
+        self.baud_ = baud
+        self.tout_ = tout
         try:
             self.ser = serial.Serial(port, baud, timeout=tout)
             self.ser.flush()
+            self.ser_status = True
         except:
-            pass
+            self.ser_status = False
 
     def __del__(self):
         try:
@@ -17,11 +21,17 @@ class serialport():
             pass
     
     def test_comm(self):
+        if self.ser_status:
+            self.ser.close()
         try:
-            if self.ser:
-                return True
+            self.ser = serial.Serial(self.port_, self.baud_, timeout=self.tout_)
+            self.ser_status = True
+            result = True
         except:
-            return False
+            self.ser_status = False
+            result =  False
+
+        return result
 
     def write(self,value):
         self.ser.write(value)
@@ -40,9 +50,9 @@ class serialport():
             #return stc.pack("<fff", mode, msg[0], msg[1], msg[2])
             
             self.ser.write(stc.pack("H", mode))
-            self.ser.write((str(round(msg[0], 2)) + " ").encode("utf-8"))
-            self.ser.write((str(round(msg[1], 2)) + " ").encode("utf-8"))
-            self.ser.write(str(round(msg[2], 2)).encode("utf-8"))
+            self.ser.write((str(msg[0]) + " ").encode("utf-8"))
+            self.ser.write((str(msg[1]) + " ").encode("utf-8"))
+            self.ser.write(str(msg[2]).encode("utf-8"))
             
         elif mode == 1:
             return stc.pack("H", mode)

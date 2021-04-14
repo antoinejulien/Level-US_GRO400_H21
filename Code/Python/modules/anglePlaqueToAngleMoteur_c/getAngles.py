@@ -12,7 +12,7 @@ def getAngles(angleX, angleY, hauteur):
 
     # 
     for i, angle in enumerate(anglesMoteurs):
-        anglesMoteurs[i] = 180 - angle
+        anglesMoteurs[i] = 312 - angle
     
     # returning array of 3 angles
     return anglesMoteurs
