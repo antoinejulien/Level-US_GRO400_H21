@@ -22,7 +22,7 @@ if __name__ == '__main__':
     lib.getAngles(anglex, angley, hauteur, anglesMoteurs)
     timeAfter = time.perf_counter()
 
-    ## printing results
+    ## printing results0
     print("\n\n\ninitial values :\n" + "angle X :\t" + str(float(anglex)) + "\nanlge Y :\t" + str(float(angley)) + "\nheight :\t" + str(float(hauteur)) + "\n")
     i = 1
     for angles in anglesMoteurs:

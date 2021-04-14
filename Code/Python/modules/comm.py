@@ -29,15 +29,27 @@ class serialport():
     def read(self):
         while True:
             if self.ser.in_waiting > 0:
-                line = self.ser.readline().decode("utf-8").rstrip()
+                line = self.ser.readline()
 
                 return line
 
-    def encode(self, msg):
-        return stc.pack("HHHH", msg[0], msg[1], msg[2], msg[3])
+    def encode(self, mode, msg):
+        
+        if mode == 0:
+            #return stc.pack("HHHH", mode, int(msg[0]), int(msg[1]), int(msg[2]))
+            #return stc.pack("<fff", mode, msg[0], msg[1], msg[2])
+            
+            self.ser.write(stc.pack("H", mode))
+            self.ser.write((str(round(msg[0], 2)) + " ").encode("utf-8"))
+            self.ser.write((str(round(msg[1], 2)) + " ").encode("utf-8"))
+            self.ser.write(str(round(msg[2], 2)).encode("utf-8"))
+            
+        elif mode == 1:
+            return stc.pack("H", mode)
 
     def decode(self, msg):
-        return msg.split()
+        #return stc.unpack("fff", msg)
+        return msg.decode("utf-8").rstrip().split()
 
 
 
