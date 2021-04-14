@@ -44,6 +44,7 @@ int SerialCommunication::serialDecoder(float commands[3])
 		for(int i = 0; i < 3; i++)
 		{ 
 			commands[i] = Serial.parseFloat(); 
+			//commands[i] = Serial.readBytes(inputBytes, 2);
 		}
 		return 0;
 	}

@@ -1,15 +1,21 @@
 #: import NoTransition kivy.uix.screenmanager.NoTransition
 #: import Factory kivy.factory.Factory
 
-<Label>
-    font_size: 32
+<Button>
+    font_size: 24
+    text_size : self.size
+    halign: "center"
+    valign: "middle"
+
+<Labels@Label>
+    font_size: 24
     text_size : self.size
     halign: "center"
     valign: "middle"
     markup: True
 
 <TitleLabel@Label>
-    font_size: 48
+    font_size: 32
     halign: "center"
     valign: "middle"
     markup: True
@@ -18,10 +24,10 @@
     pos_hint: {"left": 1, "top": 1}
 
 <MenuButton@Button>
-    font_size: 32
+    font_size: 24
 
 <ManualButton@Button>
-    font_size: 32
+    font_size: 24
 
 <BackgroundAuto@Widget>
     background_color: 0, 0, 0, 
@@ -43,20 +49,12 @@
     background_color: 85/256, 85/256, 85/256, 1
 
 <PortPopup>
-    auto_dismiss: False
-    size_hint: (0.5, 0.5)
-    title: "Port error"
-    
-    BoxLayout:
-        orientation: "vertical"
-        size_hint: (1, 1)
+    Labels:
+        text: "No port is detected, can't enter operationnal mode"
 
-        Label:
-            text: "No port is detected, can't enter operationnal mode"
-
-        Button:
-            text: "Ok"
-            on_release: root.dismiss()
+    #Button:
+        #text: "Ok"
+        #on_release : root.dismiss()
 
 WindowManager:
     canvas.before:
@@ -90,20 +88,20 @@ WindowManager:
             size_hint: (0.60, 0.60)
             pos_hint: {"x": 0.05, "top": 0.8}
 
-            Label:
+            Labels:
                 text: "Choose the desired\noperation mode"
 
             MenuButton:
                 text: "Manual"
                 on_release: 
-                    root.goto_manual()
+                    app.root.current = "manual_window"
 
             MenuButton:
                 text: "Automatic"
                 on_release: 
                     app.root.current = "auto_window"
 
-        Label:
+        Labels:
             id: port_status
             text : ""
             size_hint: (0.25, 0.125)
@@ -133,41 +131,183 @@ WindowManager:
 <ManualWindow>
     name: "manual_window"
 
-    status:status
+    x_value:x_value
+    y_value:y_value
+    h_value:h_value
+    i_value:i_value
     
     FloatLayout:
         size: root.width, root.height
 
         BoxLayout:
             orientation: "vertical"
-            spacing: 10
-            size_hint: (0.425, 0.75)
-            pos_hint: {"x": 0.05, "top": 0.875}
+            size_hint: (0.60, 0.8)
+            pos_hint: {"x": 0.05, "top": 0.85}
 
-            ManualButton:
-                text: "High"
-                on_release: 
-                    root.high()
+            Labels:
+                text: "Adjust position"
+                size_hint: (1, 0.1)
+                pos_hint: {"x": 0, "top": 1}
 
-            ManualButton:
-                text: "Middle"
-                on_release: 
-                    root.mid()
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: (1, 0.40)
+                pos_hint: {"x": 0, "top": 0.85}
 
-            ManualButton:
-                text: "Low"
-                on_release: 
-                    root.low()
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0, "top": 1}
 
-        Label:
-            id: status
-            text : "Status"
-            size_hint: (0.425, 0.75)
-            pos_hint: {"x": 0.525, "top": 0.875}
+                    AutoLabel:
+                        text : "X"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 1}
 
+                    AutoLabel:
+                        id: x_value
+                        text : "0"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 0.45}
 
-        TitleLabel:
-            text: "Manual mode"
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0.35, "top": 1}
+
+                    AutoLabel:
+                        text : "Y"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        id: y_value
+                        text : "0"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 0.45}
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0.7, "top": 1}
+
+                    AutoLabel:
+                        text : "Height"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 1}
+
+                    AutoLabel:
+                        id: h_value
+                        text : "200"
+                        size_hint: (1, 0.45)
+                        pos_hint: {"x": 0, "top": 0.45}
+
+            Label:
+                text: ""
+                size_hint: (1, 0.05)
+                pos_hint: {"x": 0, "top": 0.45}
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: (1, 0.40)
+                pos_hint: {"x": 0, "top": 0.40}
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0.0, "top": 1}
+
+                    Button:
+                        text : "+"
+                        size_hint: (0.5, 0.45)
+                        pos_hint: {"x": 0.25, "top": 1}
+                        on_press: 
+                            root.add("x")
+
+                    Button:
+                        text : "-"
+                        size_hint: (0.5, 0.45)
+                        pos_hint: {"x": 0.25, "top": 0.45}
+                        on_press: 
+                            root.substract("x")
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0.35, "top": 1}
+
+                    Button:
+                        text : "+"
+                        size_hint: (0.5, 0.45)
+                        pos_hint: {"x": 0.25, "top": 1}
+                        on_press: 
+                            root.add("y")
+
+                    Button:
+                        text : "-"
+                        size_hint: (0.5, 0.45)
+                        pos_hint: {"x": 0.25, "top": 0.45}
+                        on_press: 
+                            root.substract("y")
+
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint: (0.3, 1)
+                    pos_hint: {"x": 0.7, "top": 1}
+
+                    Button:
+                        text : "+"
+                        size_hint: (0.5, 0.45)
+                        pos_hint: {"x": 0.25, "top": 1}
+                        on_press: 
+                            root.add("h")
+
+                    Button:
+                        text : "-"
+                        size_hint: (0.5, 0.45)
+                        pos_hint: {"x": 0.25, "top": 0.45}
+                        on_press: 
+                            root.substract("h")
+        
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: (0.25, 0.35)
+            pos_hint: {"x": 0.7, "top": 0.8}
+            
+            Labels:
+                text: "Incrementation"
+                size_hint: (1, 0.33)
+                pos_hint: {"x": 0, "top": 1}
+
+            AutoLabel:
+                id: i_value
+                text: "1"
+                size_hint: (1, 0.33)
+                pos_hint: {"x": 0, "top": 0.66}
+
+            Label:
+                text: ""
+                size_hint: (1, 0.1)
+                pos_hint: {"x": 0, "top": 0.33}
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: (1, 0.23)
+                pos_hint: {"x": 0, "top": 0.23}
+
+                Button:
+                    text: "+"
+                    size_hint: (0.5, 1)
+                    pos_hint: {"x": 0, "top": 1}
+                    on_press: 
+                        root.add("i")
+
+                Button:
+                    text: "-"
+                    size_hint: (0.5, 1)
+                    pos_hint: {"x": 0.5, "top": 1}
+                    on_press: 
+                        root.substract("i")
 
         Button:
             text: "Menu"
@@ -177,11 +317,27 @@ WindowManager:
             pos_hint: {"left": 1, "bottom": 1}
             on_release: 
                 app.root.current = "menu"
+        
+        Button:
+            id: send_button
+            text: "Send"
+            size_hint: (0.25, 0.1575)
+            pos_hint: {"x": 0.7, "top": 0.18}
+            on_press: 
+                root.send()
+
+        TitleLabel:
+            text: "Manual mode"
 
 <AutoWindow>
     name: "auto_window"
 
     x_value:x_value
+    y_value:y_value
+    h_value:h_value
+    motor1_value:motor1_value
+    motor2_value:motor2_value
+    motor3_value:motor3_value
 
     FloatLayout:
         size: root.width, root.height
@@ -203,7 +359,7 @@ WindowManager:
             size_hint: (0.60, 0.8)
             pos_hint: {"x": 0.05, "top": 0.85}
 
-            Label:
+            Labels:
                 text: "Position read"
                 size_hint: (1, 0.1)
                 pos_hint: {"x": 0, "top": 1}
@@ -240,6 +396,7 @@ WindowManager:
                         pos_hint: {"x": 0, "top": 1}
 
                     AutoLabel:
+                        id: y_value
                         text : "Value"
                         size_hint: (1, 0.45)
                         pos_hint: {"x": 0, "top": 0.45}
@@ -250,16 +407,17 @@ WindowManager:
                     pos_hint: {"x": 0.7, "top": 1}
 
                     AutoLabel:
-                        text : "Z"
+                        text : "Height"
                         size_hint: (1, 0.45)
                         pos_hint: {"x": 0, "top": 1}
 
                     AutoLabel:
+                        id: h_value
                         text : "Value"
                         size_hint: (1, 0.45)
                         pos_hint: {"x": 0, "top": 0.45}
 
-            Label:
+            Labels:
                 text: "Motor positions"
                 size_hint: (1, 0.1)
                 pos_hint: {"x": 0, "top": 0.45}
@@ -280,6 +438,7 @@ WindowManager:
                         pos_hint: {"x": 0, "top": 1}
 
                     AutoLabel:
+                        id: motor1_value
                         text : "Value"
                         size_hint: (1, 0.45)
                         pos_hint: {"x": 0, "top": 0.45}
@@ -295,6 +454,7 @@ WindowManager:
                         pos_hint: {"x": 0, "top": 1}
 
                     AutoLabel:
+                        id: motor2_value
                         text : "Value"
                         size_hint: (1, 0.45)
                         pos_hint: {"x": 0, "top": 0.45}
@@ -305,11 +465,12 @@ WindowManager:
                     pos_hint: {"x": 0.7, "top": 1}
 
                     AutoLabel:
-                        text : "Motor 2"
+                        text : "Motor 3"
                         size_hint: (1, 0.45)
                         pos_hint: {"x": 0, "top": 1}
 
                     AutoLabel:
+                        id: motor3_value
                         text : "Value"
                         size_hint: (1, 0.45)
                         pos_hint: {"x": 0, "top": 0.45}
