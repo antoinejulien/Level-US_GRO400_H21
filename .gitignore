@@ -1,3 +1,4 @@
 gro400_venv
 .vscode
 Code/Python/modules/anglePlaqueToAngleMoteur_c/Release/
+Code/Python/modules/anglePlaqueToAngleMoteur_c/getAngles_cffi.c
