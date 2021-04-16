@@ -2,7 +2,7 @@
 
   The cads of all prototypes are presented in this section. All parts and assembly are made on SolidWorks 2020.
   
-  Here are the list of all the materials used for the final prototype 
+  Here are the list of all the materials used for the final prototype :
   
       - Wooden parts:
       
