@@ -2,14 +2,15 @@
 
 ## GUI
 
-The GUI is built using the Kivy2.0 module for Python 3.6. The resolution of the screen is 480x320 because it is the resolution of the touch scren that will be used eventually. The GUI is scallable so the window can be bigger and the layout will stay the same.
+The GUI is built using the Kivy2.0 module for Python 3.6. The resolution of the screen was originally set to 480x320 because it is the resolution of the touch scren that would be used eventually, but it is still not implemented. The GUI is scallable so the window can be bigger and the layout will stay the same.
 The app contains 3 windows:
-1. Menu, boot window and used to acces the other windows.
+1. Menu, boot window and used to acces the other windows. It also allows to see the state of the serial port connection. If the port is not connected, a pop-up will appear to block the acces to that window.
   <img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/master/Images/Main_menu.png?raw=true" width="480" height="320">
-2. Manual Window, used to manually control the movement of the platform.
+2. Manual Window, used to manually control the movement of the platform to allow easy testing.
 <img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/master/Images/manual.png?raw=true" width="480" height="320">
-3. Automatic Window, not yet fully implemented, but will eventually have data for the automatic control of the platform.
-4. <img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/master/Images/Automatic.png?raw=true" width="480" height="320">
+3. Automatic Window, allows to start and stop the automatic control of the platform. The values read by the OpenCR and the motor angles sent are also displayed on the screen.
+  <img src="https://github.com/antoinejulien/Level-US_GRO400_H21/blob/master/Images/Automatic.png?raw=true" width="480" height="320">
+NOTE: If the serial connection is lost during the use of the automatic mode, it will stop and return to the menu.
 
 ## OpenCR code
 
