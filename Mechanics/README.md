@@ -6,13 +6,11 @@
   
       - Wooden parts:
       
-          Top platforms
+          Platforms
           
       - 3D printed plastic parts:
       
           Motor's holders
-          
-          Motor's axles
           
           Motor's axles holders
           
@@ -26,11 +24,11 @@
           
       - Metal:
 
-          Every screws and nuts
+          Every screws and nuts (M3)
           
-          Base platform
+          Base and top platform
           
-          Joints
+          Ball Joints (M3)
       
  Notes:   
  
