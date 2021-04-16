@@ -1,32 +1,38 @@
 ## Cad design:
 
-  The cad of the first working prototype are presented in the CAD_prototype2 folder.
+  The cads of all prototypes are presented in this section. All parts and assembly are made on SolidWorks 2020.
   
-  All parts and assembly are made on SolidWorks.
+  Here are the list of all the materials used for the final prototype 
   
       - Wooden parts:
       
-          every plateform or arms involving relativly big parts
+          Top platforms
           
       - 3D printed plastic parts:
       
-          motors holders
+          Motor's holders
           
-          motor's axles
+          Motor's axles
           
-          motor's axles holders
+          Motor's axles holders
+          
+          Motor's arms
           
       - Molded plastic:
       
-          motor's frames
+          Motor's frames
           
-          top pivot's holders
+          Top pivot's holders
           
       - Metal:
 
-          every screws and nuts
+          Every screws and nuts
+          
+          Base platform
+          
+          Joints
       
- notes:   
+ Notes:   
  
    OpenCR and RaspberryPi are approximated by the middle box.
 
