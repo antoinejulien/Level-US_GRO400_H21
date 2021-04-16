@@ -26,4 +26,4 @@ The app is the high-end of the program, it sends commands to the OpenCR platform
 
 ## Code Specifications
 
-Make sure that the motors are labeled correctly from 1 to 3 in the arduino code. Also, motor 1's arm should be aligned with the x openCR IMU rotating axis.
+Make sure that the motors are labeled correctly from 1 to 3 in the arduino code. Also, motor 1's arm should be aligned with the x openCR IMU rotating axis. Also, as for the MPU6050, the code to retreive angles was written and commented in the openCR code. We wanted to make a PID on the position and the angle, but we didn't have enough time.
