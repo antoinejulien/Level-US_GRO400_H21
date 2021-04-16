@@ -18,7 +18,7 @@ from kivy.uix.popup import Popup
 Config.set("graphics", "window_state", "maximized")
 ser = comm.serialport("COM3", 115200, 1)
 
-height = float(220)
+height = float(200)
 
 popupWindow = Popup(title ="Port error", content = Builder.load_file("popup.kv"),
                     size_hint =(0.5, 0.5))
@@ -41,10 +41,12 @@ class MenuWindow(Screen):
             self.port_status.text = "Port connected"
             self.reco_button.opacity = 0.75
             self.reco_button.disabled = True
+            return True
         else:
             self.port_status.text = "No port detected"
             self.reco_button.opacity = 1
             self.reco_button.disabled = False
+            return False
 
     def reconnect(self):
         global ser
@@ -149,7 +151,7 @@ class AutoWindow(Screen):
 
     def start_auto(self):
         Clock.unschedule(self.auto_mode)
-        Clock.schedule_interval(self.auto_mode, 0.055)
+        Clock.schedule_interval(self.auto_mode, 0.075)
 
     def stop_auto(self):
         Clock.unschedule(self.auto_mode)
@@ -182,7 +184,12 @@ class Level_US(App):
         return kv_builder
 
     def check_connection(self, dt):
-        App.get_running_app().root.get_screen("menu").check_port()   
+        status = App.get_running_app().root.get_screen("menu").check_port()
+        if status == True:
+            pass
+        elif status == False:
+            App.get_running_app().root.current = "menu"
+
 
 if __name__ == "__main__":
     Level_US().run()
