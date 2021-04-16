@@ -41,3 +41,15 @@ We do not want the venv to be pushed to Github in case of a push.
 2. Run `echo 'my_venv' >> .gitignore` to add the venv to .gitignore. 
 
 This way, the next you commit a change, the files in .gitignore will not be commited.
+
+## CFFI library build
+
+The CFFI module needs to be rebuilt for every computer so you will have to update the values of your dynamic model and rebuild the library.
+1. In [anglePlaqueToAngleMoteur.c](https://github.com/antoinejulien/Level-US_GRO400_H21/blob/master/Code/Python/modules/anglePlaqueToAngleMoteur_c/anglePlaqueToAngleMoteur.c), from line 770 you will have the different dimensions to modify for your model, the length of the first arm is longueurBras1.contents on line 774, length of arm 2 is longueurBras2.contents on line 777 and the radius from the center of the platform to the second arm is rayonDistanceAncrageEtPivot.contents on line 780. All these values are in milimeters.
+2. Once the values are updated you will need to install Microsoft [Visual C++ 14.0](https://visualstudio.microsoft.com/visual-cpp-build-tools/) or higher to rebuild the library.
+3. Once it is installed, you can run `python_myproject angleLibBuild.py`in your command line to rebuild the library.
+4. The program should now be able to run.
+
+## Contact us
+
+To contafct us leave a message below and one of us will try to get back to you.
