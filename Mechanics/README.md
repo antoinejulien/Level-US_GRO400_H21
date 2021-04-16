@@ -36,7 +36,6 @@
 
 ## Dynamic modelisation:
 
-  The MG code is used to generate the matlab code wich is then used with an extension
+  The MG code is used to generate dynamics equations and a matlab code wich is then used with an extension
   (matlab coder) to provide the .c or .cpp files wich will be implemented with the openCR card.
   
-  Tests are still comming in order to assure the efficiency and to have our model limits.
